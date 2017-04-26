@@ -4,7 +4,7 @@ The reviews from different e-commerce websites are analysed through different cl
 1.Clone the repository.  
 2.unzip the downloaded zip file to get three files  
   a.sentiment_classifier.py  
-  b.reviews.txt  
+  b.reviews.txt(this contains the reviews retrived from different websites i.e. our training set ) 
   c.NumberOfPosandNeg.py  
 3. Run the sentiment_classifier.py   
    -this will create dataset.csv to store our training set  
