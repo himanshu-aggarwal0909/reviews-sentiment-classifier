@@ -37,6 +37,7 @@ def remove_puncutation(word):
 # Input : take the word
 # Output : returns the stem of the word 
 def stem_the_word(word):
+	word.encode('utf-8')
 	return ps.stem(word)
 
 # Purpose : To get the word count (Frequency Distribution) for top 1000 most common words 
@@ -73,7 +74,8 @@ def tokenize_the_review_training_data(review_data):
 def filter_words(tokenize_data):
 	filtered_word_data = []
 	for (tokenize_words, sentiment) in tokenize_data:
-		filtered_word_data.append(([stem_the_word(remove_puncutation(word.lower()).encode('utf-8')) for word in tokenize_words if remove_puncutation(word.lower()).decode('utf-8','ignore') not in stop_words and remove_puncutation(word.lower()).decode('utf-8','ignore') != ''], sentiment))
+		#filtered_word_data.append(([stem_the_word(remove_puncutation(word.lower()).encode('utf-8')) for word in tokenize_words if remove_puncutation(word.lower()).decode('utf-8','ignore') not in stop_words and remove_puncutation(word.lower()).decode('utf-8','ignore') != ''], sentiment))
+		filtered_word_data.append(([stem_the_word(remove_puncutation(word.lower())) for word in tokenize_words if remove_puncutation(word.lower()) not in stop_words and remove_puncutation(word.lower()) != ''], sentiment))
 		'''
 		words_filtered = []
 		for word in tokenize_words:
@@ -84,8 +86,6 @@ def filter_words(tokenize_data):
 		while '' in words_filtered:
 			words_filtered.remove('')
      	filtered_word_data.append((words_filtered, sentiment))
-     	'''
-     	'''
      	for word in words_filtered:
         correct_words.append(stem_words(correct(word)))
     	review_training_set.append((correct_words, sentiment))
@@ -110,7 +110,7 @@ def find_features(each_review_words):
 	return features
 
 def storing_dataset(training_set):
-    writer=csv.writer(open("dataset.csv",'wb'))
+    writer=csv.writer(open("dataset.csv",'w'))
     header = word_features
     header.append("CLASS_SENTIMENT")   #  1 - for positive   and  2 - for negative
     writer.writerow(header)
